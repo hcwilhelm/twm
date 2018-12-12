@@ -8,7 +8,7 @@ package object interpreters {
   /**
     * Monad stack able to provide an instance for MonadError
     */
-  type Effect[A] = EitherT[Task, Error, A]
+  type MonixEffect[A] = EitherT[Task, Error, A]
 
   /**
     * Monix SchedulerService

@@ -7,9 +7,9 @@ import cats.mtl.DefaultApplicativeAsk
 
 object ConfigAskInterpreter {
 
-  def apply(config: Config): ConfigAsk[Effect] = new DefaultApplicativeAsk[Effect, Config] {
-    override val applicative: Applicative[Effect] = Applicative[Effect]
-    override def ask: Effect[Config] = applicative.pure(config)
+  def apply(config: Config): ConfigAsk[MonixEffect] = new DefaultApplicativeAsk[MonixEffect, Config] {
+    override val applicative: Applicative[MonixEffect] = Applicative[MonixEffect]
+    override def ask: MonixEffect[Config] = applicative.pure(config)
   }
 }
 

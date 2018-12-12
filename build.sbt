@@ -8,7 +8,8 @@ scalacOptions := Seq("-feature", "-language:higherKinds", "-Xlog-implicits", "-Y
 
 libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-core" % "1.4.0",
-  "org.typelevel" %% "cats-mtl-core" % "0.4.0"
+  "org.typelevel" %% "cats-mtl-core" % "0.4.0",
+  "org.typelevel" %% "cats-effect" % "1.1.0"
 )
 
 libraryDependencies += "io.monix" %% "monix" % "3.0.0-RC2"

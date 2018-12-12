@@ -4,16 +4,16 @@ import cats.Monad
 import cats.mtl.MonadState
 import monix.execution.atomic.{Atomic, AtomicAny}
 
-class AtomicMonadState[S](atomic: Atomic[S]) extends MonadState[Effect, S] {
-  override val monad: Monad[Effect] = Monad[Effect]
+class AtomicMonadState[S](atomic: Atomic[S]) extends MonadState[MonixEffect, S] {
+  override val monad: Monad[MonixEffect] = Monad[MonixEffect]
 
-  override def get: Effect[S] = monad.pure(atomic.get())
+  override def get: MonixEffect[S] = monad.pure(atomic.get())
 
-  override def set(s: S): Effect[Unit] = monad.pure(atomic.set(s))
+  override def set(s: S): MonixEffect[Unit] = monad.pure(atomic.set(s))
 
-  override def inspect[A](f: S => A): Effect[A] = monad.pure(f(atomic.get()))
+  override def inspect[A](f: S => A): MonixEffect[A] = monad.pure(f(atomic.get()))
 
-  override def modify(f: S => S): Effect[Unit] = monad.pure(atomic.transform(f))
+  override def modify(f: S => S): MonixEffect[Unit] = monad.pure(atomic.transform(f))
 }
 
 object AtomicMonadState {

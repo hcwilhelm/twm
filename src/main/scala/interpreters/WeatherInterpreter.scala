@@ -8,15 +8,15 @@ import monix.eval.Task
 import services.{OpenWeatherClient, WeatherClient}
 
 object WeatherInterpreter {
-  def apply(config: Config): Weather[Effect] = new Weather[Effect] {
+  def apply(config: Config): Weather[MonixEffect] = new Weather[MonixEffect] {
     val client = new WeatherClient(config.host, config.port)
-    override def forecast(city: City): Effect[Forecast] = client.forecast(city).pure[Effect]
+    override def forecast(city: City): MonixEffect[Forecast] = client.forecast(city).pure[MonixEffect]
   }
 }
 
 object OpenWatherInterpreter {
-  def apply(config: Config): Weather[Effect] = new Weather[Effect] {
+  def apply(config: Config): Weather[MonixEffect] = new Weather[MonixEffect] {
     val client = new OpenWeatherClient(config.host, config.port)
-    override def forecast(city: City): Effect[Forecast] = EitherT(Task.fromFuture(client.forecast(city)))
+    override def forecast(city: City): MonixEffect[Forecast] = EitherT(Task.fromFuture(client.forecast(city)))
   }
 }
